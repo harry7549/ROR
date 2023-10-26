@@ -1,0 +1,164 @@
+***routes.rb
+
+# Rails.application.routes.draw do
+#   get 'a_rticles/show'
+#   get 'articles/index'
+#   get "/articles", to: "articles#index"
+#   get "/articles/id", to: "articles#show"
+
+#   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+# end
+
+Rails.application.routes.draw do
+  root "articles#index"
+
+  resources :articles
+end
+
+
+
+**article_controller
+
+class ArticlesController < ApplicationController
+  def index
+    @articles = Article.all
+  end
+
+  def show
+    @article = Article.find(params[:id])
+  end
+end
+
+
+# class ArticlesController < ApplicationController
+#   def index
+#     @articles = Article.all
+#   end
+
+#   def show
+#     @article = Article.find(params[:id])
+#   end
+
+#   def new
+#     @article = Article.new
+#   end
+
+#   def create
+#     @article = Article.new(article_params)
+
+#     if @article.save
+#       redirect_to @article
+#     else
+#       render :new, status: :unprocessable_entity
+#     end
+#   end
+
+#   def edit
+#     @article = Article.find(params[:id])
+#   end
+
+#   def update
+#     @article = Article.find(params[:id])
+
+#     if @article.update(article_params)
+#       redirect_to @article
+#     else
+#       render :edit, status: :unprocessable_entity
+#     end
+#   end
+
+#   def destroy
+#     @article = Article.find(params[:id])
+#     @article.destroy
+
+#     redirect_to root_path, status: :see_other
+#   end
+
+#   private
+#     def article_params
+#       params.require(:article).permit(:title, :body)
+#     end
+# end
+
+
+
+**index.html.erb
+
+
+<p>Find me in app/views/articles/index.html.erb</p>
+
+<h1>Hello, Rails!</h1>
+
+<ul>
+	<% @articles.each do |article| %>
+		<li>
+			<%= article.title %>
+		</li>
+	<% end %>
+</ul>
+
+
+
+**show.html.erb
+
+<h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+
+
+<!-- <h1><%= @article.title %></h1>
+
+<p><%= @article.body %></p>
+
+<ul>
+  <li><%= link_to "Edit", edit_article_path(@article) %></li>
+  <li><%= link_to "Destroy", article_path(@article), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></li>
+</ul>
+ -->
+
+
+
+
+ **application.html.erb
+
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog1</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>
+
+
+
+
+COMMANDS
+
+
+rails new blog
+cd blog 
+rails s
+rails g controller Artilces index
+rails g model Article title:string body:text
+db:migrate
+rails console
+article = Article.new(title: "Hello Rails", body: "I am on Rails!")
+article.save
+article
+Article.find(1)
+Article.all
+
+
+
